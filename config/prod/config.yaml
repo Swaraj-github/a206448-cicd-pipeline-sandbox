@@ -1,0 +1,7 @@
+dryrun_enabled: true
+environment_type: PRODUCTION
+iam_role: arn:aws:iam::962390577453:role/a206448-iac-code-deploy
+notification_emails:
+- swarajsampad.mallick@thomsonreuters.com
+stage_order:
+- infra

@@ -1,0 +1,21 @@
+accounts:
+- '962390577453'
+archive_name: projectname/first_env/action/config.zip
+asset_insight_id: '206448'
+deployment_engine_version: 1.5.0
+environment_order:
+- dev
+- prod
+financial_identifier: '66497'
+github_branch: master
+github_owner: Swaraj-github
+github_repo: a206448-cicd-pipeline-sandbox
+log_retention: 90
+project_code: a206448-cicd-cicd-pipeline-swaraj
+project_name: cicd-pipeline-swaraj
+region: us-west-2
+resource_owner: swarajsampad.mallick@thomsonreuters.com
+service_name: cicd
+source_bucket: a206448-iac-source-swaraj
+template_bucket_name: a206448-iac-source-swaraj
+template_key_prefix: iac-test-prefix
