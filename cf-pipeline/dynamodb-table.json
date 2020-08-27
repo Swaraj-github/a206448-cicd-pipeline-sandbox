@@ -1,0 +1,110 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "a206448-cicd-cicd-pipeline-swaraj IaC CI/CD pipeline DynamoDB table",
+    "Resources": {
+        "DynamoTable": {
+            "Properties": {
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "transaction_id",
+                        "AttributeType": "S"
+                    },
+                    {
+                        "AttributeName": "project",
+                        "AttributeType": "S"
+                    },
+                    {
+                        "AttributeName": "status",
+                        "AttributeType": "S"
+                    }
+                ],
+                "GlobalSecondaryIndexes": [
+                    {
+                        "IndexName": "Secondary",
+                        "KeySchema": [
+                            {
+                                "AttributeName": "project",
+                                "KeyType": "HASH"
+                            },
+                            {
+                                "AttributeName": "status",
+                                "KeyType": "RANGE"
+                            }
+                        ],
+                        "Projection": {
+                            "NonKeyAttributes": [
+                                "environments"
+                            ],
+                            "ProjectionType": "INCLUDE"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": 1,
+                            "WriteCapacityUnits": 1
+                        }
+                    },
+                    {
+                        "IndexName": "SecondaryGen2",
+                        "KeySchema": [
+                            {
+                                "AttributeName": "project",
+                                "KeyType": "HASH"
+                            },
+                            {
+                                "AttributeName": "status",
+                                "KeyType": "RANGE"
+                            }
+                        ],
+                        "Projection": {
+                            "NonKeyAttributes": [
+                                "environments",
+                                "git_execution_time",
+                                "git_user_name"
+                            ],
+                            "ProjectionType": "INCLUDE"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": 1,
+                            "WriteCapacityUnits": 1
+                        }
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "transaction_id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "PointInTimeRecoverySpecification": {
+                    "PointInTimeRecoveryEnabled": "true"
+                },
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": 1,
+                    "WriteCapacityUnits": 1
+                },
+                "SSESpecification": {
+                    "SSEEnabled": "true"
+                },
+                "TableName": "a206448-iac-pipeline",
+                "Tags": [
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "206448"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "66497"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "swarajsampad.mallick@thomsonreuters.com"
+                    }
+                ],
+                "TimeToLiveSpecification": {
+                    "AttributeName": "expire_date",
+                    "Enabled": "true"
+                }
+            },
+            "Type": "AWS::DynamoDB::Table"
+        }
+    }
+}

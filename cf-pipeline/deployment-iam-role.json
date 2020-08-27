@@ -1,0 +1,436 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "a206448-cicd-cicd-pipeline-swaraj IaC CI/CD pipeline Deployment IAM role",
+    "Outputs": {
+        "DeploymentIAMRoleArn": {
+            "Description": "The ARN of the Deployment IAM Role. This Arn will be the 'iam_role' value that will be placed in your environment or stage config files",
+            "Value": {
+                "Fn::GetAtt": [
+                    "DeploymentIAMRole",
+                    "Arn"
+                ]
+            }
+        }
+    },
+    "Resources": {
+        "DeploymentIAMRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": [
+                                    "arn:aws:iam::962390577453:role/service-role/a206448-cicd-cicd-pipeline-swaraj-iac-cb",
+                                    "arn:aws:iam::962390577453:role/service-role/a206448-cicd-cicd-pipeline-swaraj-iac-lmb-del"
+                                ]
+                            }
+                        },
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "cloudformation.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "MaxSessionDuration": 32400,
+                "Path": "/service-role/",
+                "PermissionsBoundary": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:policy/tr-permission-boundary"
+                },
+                "Policies": [
+                    {
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "aws-portal:*Account",
+                                        "aws-portal:ModifyBilling",
+                                        "aws-portal:ModifyPaymentMethods",
+                                        "cloudtrail:CreateTrail",
+                                        "cloudtrail:DeleteTrail",
+                                        "cloudtrail:StartLogging",
+                                        "cloudtrail:StopLogging",
+                                        "cloudtrail:UpdateTrail",
+                                        "directconnect:*",
+                                        "ec2:AcceptVpcPeeringConnection",
+                                        "ec2:AssociateDhcpOptions",
+                                        "ec2:AssociateRouteTable",
+                                        "ec2:AttachClassicLinkVpc",
+                                        "ec2:AttachInternetGateway",
+                                        "ec2:AttachVpnGateway",
+                                        "ec2:CreateDefaultVpc",
+                                        "ec2:CreateDhcpOptions",
+                                        "ec2:CreateInternetGateway",
+                                        "ec2:CreateNatGateway",
+                                        "ec2:CreateRoute",
+                                        "ec2:CreateRouteTable",
+                                        "ec2:CreateSubnet",
+                                        "ec2:CreateVpc",
+                                        "ec2:CreateVpcEndpoint",
+                                        "ec2:CreateVpcPeeringConnection",
+                                        "ec2:CreateVpnConnection",
+                                        "ec2:CreateVpnConnectionRoute",
+                                        "ec2:CreateVpnGateway",
+                                        "ec2:DeleteCustomerGateway",
+                                        "ec2:DeleteDhcpOptions",
+                                        "ec2:DeleteFlowLogs",
+                                        "ec2:DeleteInternetGateway",
+                                        "ec2:DeleteNatGateway",
+                                        "ec2:DeleteRoute",
+                                        "ec2:DeleteRouteTable",
+                                        "ec2:DeleteSubnet",
+                                        "ec2:DeleteVpc",
+                                        "ec2:DeleteVpcEndpoints",
+                                        "ec2:DeleteVpcPeeringConnection",
+                                        "ec2:DeleteVpnConnection",
+                                        "ec2:DeleteVpnConnectionRoute",
+                                        "ec2:DeleteVpnGateway",
+                                        "ec2:DetachClassicLinkVpc",
+                                        "ec2:DetachInternetGateway",
+                                        "ec2:DetachVpnGateway",
+                                        "ec2:DisableVgwRoutePropagation",
+                                        "ec2:DisableVpcClassicLink",
+                                        "ec2:DisableVpcClassicLinkDnsSupport",
+                                        "ec2:DisassociateRouteTable",
+                                        "ec2:EnableVgwRoutePropagation",
+                                        "ec2:EnableVpcClassicLink",
+                                        "ec2:EnableVpcClassicLinkDnsSupport",
+                                        "ec2:ModifyVpcAttribute",
+                                        "ec2:ModifyVpcEndpoint",
+                                        "ec2:ModifyVpcPeeringConnectionOptions",
+                                        "ec2:RejectVpcPeeringConnection",
+                                        "iam:AddClientIDToOpenIDConnectProvider",
+                                        "iam:ChangePassword",
+                                        "iam:CreateAccessKey",
+                                        "iam:CreateLoginProfile",
+                                        "iam:CreateOpenIDConnectProvider",
+                                        "iam:DeleteAccessKey",
+                                        "iam:DeleteLoginProfile",
+                                        "iam:DeleteOpenIDConnectProvider",
+                                        "iam:DeleteSSHPublicKey",
+                                        "iam:DeleteSigningCertificate",
+                                        "iam:GenerateCredentialReport",
+                                        "iam:GetAccessKeyLastUsed",
+                                        "iam:GetCredentialReport",
+                                        "iam:GetLoginProfile",
+                                        "iam:GetOpenIDConnectProvider",
+                                        "iam:GetSSHPublicKey",
+                                        "iam:ListAccessKeys",
+                                        "iam:ListOpenIDConnectProviders",
+                                        "iam:ListSSHPublicKeys",
+                                        "iam:RemoveClientIDFromOpenIDConnectProvider",
+                                        "iam:UpdateAccessKey",
+                                        "iam:UpdateLoginProfile",
+                                        "iam:UpdateOpenIDConnectProviderThumbprint",
+                                        "iam:UpdateSSHPublicKey",
+                                        "iam:UpdateSigningCertificate",
+                                        "iam:UploadSSHPublicKey",
+                                        "iam:UploadSigningCertificate",
+                                        "organizations:LeaveOrganization",
+                                        "route53domains:RegisterDomain",
+                                        "route53domains:TransferDomain",
+                                        "route53:CreateHostedZone",
+                                        "route53:DeleteHostedZone",
+                                        "ses:VerifyDomainIdentity"
+                                    ],
+                                    "Effect": "Deny",
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Action": [
+                                        "iam:GetAccountSummary",
+                                        "iam:Get*Role*",
+                                        "iam:ListServerCertificates"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "NotAction": [
+                                        "iam:*Account*",
+                                        "iam:*Group*",
+                                        "iam:*MFA*",
+                                        "iam:*SAML*",
+                                        "iam:*ServerCertificate*",
+                                        "iam:*User*"
+                                    ],
+                                    "NotResource": [
+                                        "arn:aws:iam::*:role/*-Administrator",
+                                        "arn:aws:iam::*:role/*-PowerUser",
+                                        "arn:aws:iam::*:role/*-ReadOnly",
+                                        "arn:aws:iam::*:role/human-role/*",
+                                        "arn:aws:iam::*:role/204161-Tr*",
+                                        "arn:aws:iam::*:oidc-provider/*",
+                                        "arn:aws:iam::*:user/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "sts:AssumeRole"
+                                    ],
+                                    "Effect": "Deny",
+                                    "NotResource": [
+                                        "arn:aws:iam::896748910876:role/service-role/TrBastionCaUserRole"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "sts:AssumeRole"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:iam::896748910876:role/service-role/TrBastionCaUserRole"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:DeleteTags"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:ec2:*:*:instance/*",
+                                        "arn:aws:ec2:*:*:network-interface/*",
+                                        "arn:aws:ec2:*:*:security-group/*",
+                                        "arn:aws:ec2:*::snapshot/*",
+                                        "arn:aws:ec2:*:*:volume/*",
+                                        "arn:aws:ec2:*::image/*",
+                                        "arn:aws:ec2:*:*:spot-instances-request/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:DeleteVolume"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:ec2:*:*:volume/*"
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:DetachVolume"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:ec2:*:*:instance/*",
+                                        "arn:aws:ec2:*:*:volume/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:GetConsoleScreenshot",
+                                        "ec2:RebootInstances"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:ec2:*:*:instance/*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:AuthorizeSecurityGroupEgress",
+                                        "ec2:AuthorizeSecurityGroupIngress",
+                                        "ec2:RevokeSecurityGroupEgress",
+                                        "ec2:RevokeSecurityGroupIngress",
+                                        "ec2:DeleteSecurityGroup"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:ec2:*:*:security-group/*"
+                                },
+                                {
+                                    "Action": [
+                                        "ec2:StartInstances",
+                                        "ec2:StopInstances",
+                                        "ec2:TerminateInstances",
+                                        "ec2:AssociateIamInstanceProfile",
+                                        "ec2:DisassociateIamInstanceProfile",
+                                        "ec2:ReplaceIamInstanceProfileAssociation"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "ec2:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:ec2:*:*:instance/*"
+                                },
+                                {
+                                    "Action": [
+                                        "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+                                        "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                                        "elasticloadbalancing:ConfigureHealthCheck",
+                                        "elasticloadbalancing:CreateAppCookieStickinessPolicy",
+                                        "elasticloadbalancing:CreateLBCookieStickinessPolicy",
+                                        "elasticloadbalancing:CreateLoadBalancerListeners",
+                                        "elasticloadbalancing:CreateLoadBalancerPolicy",
+                                        "elasticloadbalancing:DeleteLoadBalancerListeners",
+                                        "elasticloadbalancing:DeleteLoadBalancerPolicy",
+                                        "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+                                        "elasticloadbalancing:DetachLoadBalancerFromSubnets",
+                                        "elasticloadbalancing:DisableAvailabilityZonesForLoadBalancer",
+                                        "elasticloadbalancing:EnableAvailabilityZonesForLoadBalancer",
+                                        "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                                        "elasticloadbalancing:SetLoadBalancerListenerSSLCertificate",
+                                        "elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer",
+                                        "elasticloadbalancing:SetLoadBalancerPoliciesOfListener"
+                                    ],
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:elasticloadbalancing:*:*:loadbalancer/204161*",
+                                        "arn:aws:elasticloadbalancing:*:*:loadbalancer/BastionELB",
+                                        "arn:aws:elasticloadbalancing:*:*:loadbalancer/TrBastionELB"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "autoscaling:AttachInstances",
+                                        "autoscaling:AttachLoadBalancers",
+                                        "autoscaling:AttachLoadBalancerTargetGroups",
+                                        "autoscaling:CompleteLifecycleAction"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "autoscaling:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
+                                },
+                                {
+                                    "Action": [
+                                        "autoscaling:DeleteAutoScalingGroup",
+                                        "autoscaling:DeleteLifecycleHook",
+                                        "autoscaling:DeleteNotificationConfiguration",
+                                        "autoscaling:DeletePolicy",
+                                        "autoscaling:DeleteScheduledAction",
+                                        "autoscaling:DetachInstances",
+                                        "autoscaling:DetachLoadBalancers",
+                                        "autoscaling:DetachLoadBalancerTargetGroups",
+                                        "autoscaling:DisableMetricsCollection",
+                                        "autoscaling:EnableMetricsCollection",
+                                        "autoscaling:EnterStandby",
+                                        "autoscaling:ExecutePolicy",
+                                        "autoscaling:ExitStandby",
+                                        "autoscaling:PutLifecycleHook",
+                                        "autoscaling:PutNotificationConfiguration",
+                                        "autoscaling:PutScalingPolicy",
+                                        "autoscaling:PutScheduledUpdateGroupAction",
+                                        "autoscaling:RecordLifecycleActionHeartbeat",
+                                        "autoscaling:ResumeProcesses",
+                                        "autoscaling:SetDesiredCapacity",
+                                        "autoscaling:SetInstanceHealth",
+                                        "autoscaling:SetInstanceProtection",
+                                        "autoscaling:SuspendProcesses",
+                                        "autoscaling:TerminateInstanceInAutoScalingGroup",
+                                        "autoscaling:UpdateAutoScalingGroup"
+                                    ],
+                                    "Condition": {
+                                        "StringEquals": {
+                                            "autoscaling:ResourceTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
+                                },
+                                {
+                                    "Action": [
+                                        "autoscaling:DeleteLaunchConfiguration"
+                                    ],
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/tr-deploy-bastion-service-BastionLaunchConfiguration-*",
+                                        "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/tr-bastion-service-BastionLaunchConfiguration-*",
+                                        "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/tr-network-monitors-*",
+                                        "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/tr-nameservers-prod-*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "autoscaling:DeleteTags",
+                                        "autoscaling:CreateOrUpdateTags"
+                                    ],
+                                    "Condition": {
+                                        "StringEqualsIfExists": {
+                                            "autoscaling:ResourceTag/tr:application-asset-insight-id": "204161",
+                                            "aws:RequestTag/tr:application-asset-insight-id": "204161"
+                                        }
+                                    },
+                                    "Effect": "Deny",
+                                    "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
+                                },
+                                {
+                                    "Action": [
+                                        "cloudformation:UpdateStack",
+                                        "cloudformation:DeleteStack"
+                                    ],
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:cloudformation:*:*:stack/tr-bastion-service*",
+                                        "arn:aws:cloudformation:*:*:stack/tr-deploy-bastion-service*",
+                                        "arn:aws:cloudformation:*:*:stack/tr-network-monitors*",
+                                        "arn:aws:cloudformation:*:*:stack/tr-DhcpOptSet*",
+                                        "arn:aws:cloudformation:*:*:stack/tr-directconnect*",
+                                        "arn:aws:cloudformation:*:*:stack/*204161*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "events:DeleteRule",
+                                        "events:DisableRule",
+                                        "events:EnableRule",
+                                        "events:PutEvents",
+                                        "events:PutRule",
+                                        "events:PutTargets",
+                                        "events:RemoveTargets"
+                                    ],
+                                    "Effect": "Deny",
+                                    "Resource": [
+                                        "arn:aws:events:*:*:rule/a204161*"
+                                    ]
+                                }
+                            ],
+                            "Version": "2012-10-17"
+                        },
+                        "PolicyName": "PowerUser"
+                    }
+                ],
+                "RoleName": "a206448-cicd-cicd-pipeline-swaraj-deploy"
+            },
+            "Type": "AWS::IAM::Role"
+        }
+    }
+}

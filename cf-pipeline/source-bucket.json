@@ -1,0 +1,79 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "a206448-cicd-cicd-pipeline-swaraj IaC CI/CD pipeline source bucket",
+    "Resources": {
+        "SourceBucket": {
+            "Properties": {
+                "BucketName": "a206448-iac-source",
+                "LifecycleConfiguration": {
+                    "Rules": [
+                        {
+                            "ExpirationInDays": 186,
+                            "Id": "BucketLifecycleRule",
+                            "NoncurrentVersionExpirationInDays": 186,
+                            "Status": "Enabled"
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "206448"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "66497"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "swarajsampad.mallick@thomsonreuters.com"
+                    }
+                ],
+                "VersioningConfiguration": {
+                    "Status": "Enabled"
+                }
+            },
+            "Type": "AWS::S3::Bucket"
+        },
+        "SourceBucketPolicy": {
+            "Properties": {
+                "Bucket": {
+                    "Ref": "SourceBucket"
+                },
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "s3:GetBucketLocation",
+                                "s3:ListBucket"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": [
+                                    "arn:aws:iam::962390577453:root"
+                                ]
+                            },
+                            "Resource": "arn:aws:s3:::a206448-iac-source",
+                            "Sid": "GetListBucketPermissions"
+                        },
+                        {
+                            "Action": [
+                                "s3:GetObject",
+                                "s3:PutObject"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": [
+                                    "arn:aws:iam::962390577453:root"
+                                ]
+                            },
+                            "Resource": "arn:aws:s3:::a206448-iac-source/*",
+                            "Sid": "GetObjPermissions"
+                        }
+                    ]
+                }
+            },
+            "Type": "AWS::S3::BucketPolicy"
+        }
+    }
+}

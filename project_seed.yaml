@@ -1,0 +1,37 @@
+project_seed:
+  accounts:
+  - '962390577453'
+  asset_insight_id: '206448'
+  financial_identifier: '66497'
+  resource_owner: swarajsampad.mallick@thomsonreuters.com
+  project_name: cicd-pipeline-swaraj
+  service_name: cicd
+  source_bucket: a206448-iac-source-swaraj
+  github_repo: a206448-cicd-pipeline-sandbox
+  github_owner: Swaraj-github
+  github_branch: master
+  archive_name: projectname/first_env/action/config.zip
+  template_bucket_name: a206448-iac-source-swaraj
+  template_key_prefix: iac-test-prefix
+  deployment_engine_version: 1.5.0
+  region: us-west-2
+  log_retention: 90
+  environments:
+  - name: dev
+    environment_type: DEVELOPMENT
+    iam_role: arn:aws:iam::962390577453:role/a206448-iac-code-deploy
+    notification_emails:
+    - swarajsampad.mallick@thomsonreuters.com
+    stages:
+    - name: infra
+      type: cloudformation
+    dryrun_enabled: true
+  - name: prod
+    environment_type: PRODUCTION
+    iam_role: arn:aws:iam::962390577453:role/a206448-iac-code-deploy
+    notification_emails:
+    - swarajsampad.mallick@thomsonreuters.com
+    stages:
+    - name: infra
+      type: cloudformation
+    dryrun_enabled: true
