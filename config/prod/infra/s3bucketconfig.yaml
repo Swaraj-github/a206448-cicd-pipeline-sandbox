@@ -1,0 +1,9 @@
+template_path: templates/s3bucketProd.yaml
+parameters:
+  BucketName: "a206448-s3-bucket-prod-swaraj"
+stack_tags:
+  tr:financial-identifier: 66497
+  tr:application-asset-insight-id: 206448
+  tr:environment-type: PRODUCTION
+  tr:resource-owner: swarajsampad.mallick@thomsonreuters.com
+

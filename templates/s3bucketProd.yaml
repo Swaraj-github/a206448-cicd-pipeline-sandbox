@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Template to create a S3 bucket'
+Parameters:
+  BucketName:
+    Type: String
+Outputs:
+  BucketName:
+    Description: S3 bucket name
+    Value: !Ref S3Bucket
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      Tags:
+        -
+          Key: "tr:application-asset-insight-id"
+          Value: 206448
+        -
+          Key: "tr:financial-identifier"
+          Value: 66497
+        -
+          Key: "tr:resource-owner"
+          Value: swarajsampad.mallick@thomsonreuters.com
+        -
+          Key: "tr:environment-type "
+          Value: PRODUCTION
+        -
+          Key: "service-name"
+          Value: cicd
+      VersioningConfiguration:
+          Status: Enabled
+
