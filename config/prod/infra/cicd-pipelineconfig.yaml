@@ -1,0 +1,8 @@
+template_path: templates/cicd-pipeline-Prod.yaml
+parameters:
+stack_tags:
+  tr:financial-identifier: 66497
+  tr:application-asset-insight-id: 206448
+  tr:environment-type: PRODUCTION
+  tr:resource-owner: swarajsampad.mallick@thomsonreuters.com
+
